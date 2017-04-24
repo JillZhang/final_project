@@ -44,6 +44,7 @@ tfidf = idf.transform(tf)
 training = labels.zip(tfidf).map(lambda x: LabeledPoint(x[0], x[1]))
 model = NaiveBayes.train(training)
 
+
 print "Make prediction for tweets. The tweet test is 'RT @Zareef_Osman: March Madness https://t.co/yKMAhptsCm'"
 
 new_doc = sc.parallelize(['RT @Zareef_Osman: March Madness https://t.co/yKMAhptsCm'])

@@ -71,7 +71,7 @@ print selected.first()[0]
 
 model.save("/program/nb-model/spark-model")
 pipeline.save("/program/nb-model/unfit-model")
-model = PipelineModel("/program/nb-model/spark-model")
+model = PipelineModel.load("/program/nb-model/spark-model")
 
 #predictionAndLabel = model.predict(new_tfidf)
 #print "This is a social unrest tweet 0 for no, 1 for yes",predictionAndLabel.first()
