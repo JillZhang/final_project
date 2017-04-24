@@ -26,12 +26,12 @@ def extract(line):
 
 documents1 = sc.textFile("/program/sample/tweets-0.json")
 
-transformed1 = documents1.map(lambda line: (extract(line).split(" "),0),preservesPartitioning=True)\
+transformed1 = documents1.map(lambda line: (extract(line).lower().split(""),0),preservesPartitioning=True)\
                             .filter(lambda line: type(line[0]) is not None and len(line[0])>5)
 
 documents2 = sc.textFile("/data/tweets-0.json")
 
-transformed2 = documents2.map(lambda line: (extract(line).split(" "),1),preservesPartitioning=True)\
+transformed2 = documents2.map(lambda line: (extract(line).lower().split(""),1),preservesPartitioning=True)\
                             .filter(lambda line: type(line[0]) is not None and len(line[0])>5)
 transformed = sc.union([transformed1, transformed2])
 
