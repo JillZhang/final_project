@@ -1,0 +1,17 @@
+create location table:
+
+hive> create table location(STATE varchar(500), COUNT varchar(500))
+    > row format delimited fields terminated by ","
+    > STORED AS textfile
+    > tblproperties("skip.header.line.count"="1");
+
+load data local inpath '<whatever path it is to the csv file>' into table time;
+
+create time table:
+
+hive> create table time(DATETIME varchar(500), COUNT varchar(500))
+    > row format delimited fields terminated by ","
+    > STORED AS textfile
+    > tblproperties("skip.header.line.count"="1");
+
+load data local inpath '<whatever path it is to the csv file>' into table location;
