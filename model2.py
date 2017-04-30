@@ -29,12 +29,12 @@ def extract(line):
     except:
         return " "
 
-documents1 = sc.textFile("/program/sample/tweets-0.json")
+documents1 = sc.textFile("/sample/*")
 
 transformed1 = documents1.map(lambda line: (extract(line),0),preservesPartitioning=True)\
                             .filter(lambda line: type(line[0]) is not None and len(line[0])>5)
 
-documents2 = sc.textFile("/data/tweets-0.json")
+documents2 = sc.textFile("/protest/*")
 
 transformed2 = documents2.map(lambda line: (extract(line),1),preservesPartitioning=True)\
                             .filter(lambda line: type(line[0]) is not None and len(line[0])>5)

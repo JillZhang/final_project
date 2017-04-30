@@ -24,8 +24,9 @@ def extract(line):
     except:
         return str("error in extract function")
 
-
-
+bootstrapServers = '<The server host and port, it changes everytime we restart kakfa clusteer>'
+subscribeType = 'subscribe'
+topics = 'topic1,topic2'
 spark = SparkSession.builder \
     .master("local") \
     .appName("WordCount") \
@@ -33,15 +34,15 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 userSchema = StructType().add("text", "string")
-lines = spark \
-    .readStream \
-    .schema(userSchema)\
-    .format("socket") \
-    .option("host", "localhost") \
-    .option("port", 4444) \
-    .option('includeTimestamp', 'true')\
-    .load()
 
+ lines = spark\
+        .readStream.schema(userSchema)\
+        .format("kafka")\
+        .option("kafka.bootstrap.servers", bootstrapServers)\
+        .option(subscribeType, topics)\
+        .option('includeTimestamp', 'true')\
+        .load()\
+        .selectExpr("CAST(value AS STRING)")
 
 
 #testDF = spark \
